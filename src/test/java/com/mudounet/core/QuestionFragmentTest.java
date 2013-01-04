@@ -3,12 +3,11 @@
  */
 package com.mudounet.core;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.After;
-import org.junit.AfterClass;
+import java.util.ArrayList;
+
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -35,7 +34,7 @@ public class QuestionFragmentTest {
 	}
 	
 	private void testFragmentValidation(String origString, String[] answers, int[] results) throws Exception {
-		QuestionFragment QFTested = new QuestionFragment(origString);
+		QFTested = new QuestionFragment(origString);
 		assertEquals(origString.length(), QFTested.validate());
 		
 		for(int idx = 0; idx < answers.length; idx++) {
@@ -45,6 +44,25 @@ public class QuestionFragmentTest {
 		
 		QFTested.setAnswer(origString);
 		assertEquals(0, QFTested.validate());
+	}
+	
+	/**
+	 * Test method for {@link com.mudounet.core.QuestionFragment#buildFragments()}.
+	 */
+	@Test
+	public void testBuildFragments() throws Exception {
+		testBuildFragmentsValidation("Как по-французски \"конечно\"?", new String[] {"Как", " ", "по", "-", "французски", " \"", "конечно", "\"?"});
+		testBuildFragmentsValidation("#Вы замужем? - #Да, замужем.", new String[] {"Вы", " ", "замужем", "? - ", "Да", ", ", "замужем", "."});
+
+		
+	}
+	
+	private void testBuildFragmentsValidation(String origString, String[] answers) throws Exception {
+		ArrayList<QuestionFragment> elements = QuestionFragment.buildFragments(origString);
+		
+		for(int idx = 0; idx < answers.length; idx++) {
+			assertEquals(answers[idx], elements.get(idx).getQuestion());
+		}
 	}
 
 	/**
