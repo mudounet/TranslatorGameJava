@@ -16,45 +16,25 @@ import org.junit.Test;
  *
  */
 public class QuestionFragmentTest {
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
+	QuestionFragment QFTested;
+	
 	@Before
-	public void setUp() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
+	public void setup() {
+		QFTested = new QuestionFragment();   
 	}
 
 	/**
 	 * Test method for {@link com.mudounet.core.QuestionFragment#validate()}.
+	 * @throws Exception 
 	 */
 	@Test
-	public void testValidate() {
+	public void testValidate() throws Exception {
 		testFragmentValidation("testElement", new String[] {"TESTElennt", "testemnet", "etlmnet"}, new int[] {2, 4, 6});
-		testFragmentValidation("testElement", new String[] {"TESTElennt", "testemnet", "etlmnet"}, new int[] {-1, -1, -1});
+		testFragmentValidation("Познакомьтесь", new String[] {"познrtомьтес", "поerнакьтесь", "поerнакьтеre"}, new int[] {3, 4, 6});
 	}
 	
-	private void testFragmentValidation(String origString, String[] answers, int[] results) {
+	private void testFragmentValidation(String origString, String[] answers, int[] results) throws Exception {
 		QuestionFragment QFTested = new QuestionFragment(origString);
 		assertEquals(origString.length(), QFTested.validate());
 		
@@ -69,20 +49,49 @@ public class QuestionFragmentTest {
 
 	/**
 	 * Test method for {@link com.mudounet.core.QuestionFragment#getFragmentType()}.
+	 * @throws Exception 
 	 */
 	@Test
-	public void testGetFragmentType() {  
-		fail("Not yet implemented");
+	public void testGetFragmentType() throws Exception {
+		QFTested.setQuestion("Познакомьтесь");
+		assertEquals(QuestionFragment.EDITABLE_FRAGMENT, QFTested.getFragmentType());
+		assertEquals("Познакомьтесь", QFTested.getQuestion());
+
+		
+		QFTested.setQuestion("#Познакомьтесь");
+		assertEquals(QuestionFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
+		assertEquals("Познакомьтесь", QFTested.getQuestion());
+		
+		QFTested.setQuestion(" : ");
+		assertEquals(QuestionFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
+		assertEquals(" : ", QFTested.getQuestion());
+		
+		QFTested.setQuestion(", ");
+		assertEquals(QuestionFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
+		assertEquals(", ", QFTested.getQuestion());
+
+		QFTested.setQuestion("! ");
+		assertEquals(QuestionFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
+		assertEquals("! ", QFTested.getQuestion());
+		
+		QFTested.setQuestion("?");
+		assertEquals(QuestionFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
+		assertEquals("?", QFTested.getQuestion());
 	}
 	
-
-
-	/**
-	 * Test method for {@link com.mudounet.core.QuestionFragment#setAnswer(java.lang.String)}.
-	 */
-	@Test
-	public void testSetAnswer() {
-		fail("Not yet implemented");
+	@Test(expected=Exception.class)
+	public void testGetFragmentType1() throws Exception {
+		QFTested.setQuestion("");
+	}
+	
+	@Test(expected=Exception.class)
+	public void testGetFragmentType2() throws Exception {
+		QFTested.setQuestion(" Познакомьтесь  ");
+	}
+	
+	@Test(expected=Exception.class)
+	public void testGetFragmentType3() throws Exception {
+		QFTested.setQuestion(" #Познакомьтесь  ");
 	}
 
 }
