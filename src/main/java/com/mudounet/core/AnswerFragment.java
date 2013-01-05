@@ -8,65 +8,27 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class QuestionFragment {
+public class AnswerFragment {
 
 	public static final int CONSTANT_FRAGMENT = 2;
 	public static final int EDITABLE_FRAGMENT = 1;
 	private static final Logger Logger = LoggerFactory
-			.getLogger(QuestionFragment.class);
+			.getLogger(AnswerFragment.class);
 
 	private static int minimum(int a, int b, int c) {
 		return Math.min(Math.min(a, b), c);
 	}
 
-	public static ArrayList<QuestionFragment> buildFragments(String text)
-			throws Exception {
-		ArrayList<QuestionFragment> elts = new ArrayList<QuestionFragment>();
-
-		CharSequence cs = new String(text);
-		int lastCharType = 0;
-
-		StringBuilder l = new StringBuilder();
-		for (int x = 0; x < cs.length(); x++) {
-			char myChar = cs.charAt(x);
-
-			int charType;
-
-			if (Character.toString(myChar).matches("[\\p{L}#]"))
-				charType = 1;
-			else
-				charType = 2;
-
-			if (lastCharType == 0)
-				lastCharType = charType;
-
-			if (charType != lastCharType) {
-				Logger.debug("Found match : \"" + l.toString() + "\"");
-				QuestionFragment fragment = new QuestionFragment(l.toString());
-				elts.add(fragment);
-
-				l = new StringBuilder();
-			}
-			l.append(myChar);
-			lastCharType = charType;
-		}
-
-		Logger.debug("Found last match : \"" + l.toString() + "\"");
-		QuestionFragment fragment = new QuestionFragment(l.toString());
-		elts.add(fragment);
-
-		return elts;
-	}
 
 	private String answer;
 	private int fragmentType;
 
 	private String question;
 
-	public QuestionFragment() {
+	public AnswerFragment() {
 	}
 
-	public QuestionFragment(String text) throws Exception {
+	public AnswerFragment(String text) throws Exception {
 		setQuestion(text);
 	}
 

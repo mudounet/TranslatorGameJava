@@ -14,17 +14,17 @@ import org.junit.Test;
  * @author mudounet
  *
  */
-public class QuestionFragmentTest {
+public class AnswerFragmentTest {
 	
-	QuestionFragment QFTested;
+	AnswerFragment QFTested;
 	
 	@Before
 	public void setup() {
-		QFTested = new QuestionFragment();   
+		QFTested = new AnswerFragment();   
 	}
 
 	/**
-	 * Test method for {@link com.mudounet.core.QuestionFragment#validate()}.
+	 * Test method for {@link com.mudounet.core.AnswerFragment#validate()}.
 	 * @throws Exception 
 	 */
 	@Test
@@ -34,7 +34,7 @@ public class QuestionFragmentTest {
 	}
 	
 	private void testFragmentValidation(String origString, String[] answers, int[] results) throws Exception {
-		QFTested = new QuestionFragment(origString);
+		QFTested = new AnswerFragment(origString);
 		assertEquals(origString.length(), QFTested.validate());
 		
 		for(int idx = 0; idx < answers.length; idx++) {
@@ -45,55 +45,36 @@ public class QuestionFragmentTest {
 		QFTested.setAnswer(origString);
 		assertEquals(0, QFTested.validate());
 	}
-	
-	/**
-	 * Test method for {@link com.mudounet.core.QuestionFragment#buildFragments()}.
-	 */
-	@Test
-	public void testBuildFragments() throws Exception {
-		testBuildFragmentsValidation("Как по-французски \"конечно\"?", new String[] {"Как", " ", "по", "-", "французски", " \"", "конечно", "\"?"});
-		testBuildFragmentsValidation("#Вы замужем? - #Да, замужем.", new String[] {"Вы", " ", "замужем", "? - ", "Да", ", ", "замужем", "."});
-
-		
-	}
-	
-	private void testBuildFragmentsValidation(String origString, String[] answers) throws Exception {
-		ArrayList<QuestionFragment> elements = QuestionFragment.buildFragments(origString);
-		
-		for(int idx = 0; idx < answers.length; idx++) {
-			assertEquals(answers[idx], elements.get(idx).getQuestion());
-		}
-	}
 
 	/**
-	 * Test method for {@link com.mudounet.core.QuestionFragment#getFragmentType()}.
+	 * Test method for {@link com.mudounet.core.AnswerFragment#getFragmentType()}.
 	 * @throws Exception 
 	 */
 	@Test
 	public void testGetFragmentType() throws Exception {
 		QFTested.setQuestion("Познакомьтесь");
-		assertEquals(QuestionFragment.EDITABLE_FRAGMENT, QFTested.getFragmentType());
+		assertEquals(AnswerFragment.EDITABLE_FRAGMENT, QFTested.getFragmentType());
 		assertEquals("Познакомьтесь", QFTested.getQuestion());
 
 		
 		QFTested.setQuestion("#Познакомьтесь");
-		assertEquals(QuestionFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
+		assertEquals(AnswerFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
 		assertEquals("Познакомьтесь", QFTested.getQuestion());
 		
 		QFTested.setQuestion(" : ");
-		assertEquals(QuestionFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
+		assertEquals(AnswerFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
 		assertEquals(" : ", QFTested.getQuestion());
 		
 		QFTested.setQuestion(", ");
-		assertEquals(QuestionFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
+		assertEquals(AnswerFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
 		assertEquals(", ", QFTested.getQuestion());
 
 		QFTested.setQuestion("! ");
-		assertEquals(QuestionFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
+		assertEquals(AnswerFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
 		assertEquals("! ", QFTested.getQuestion());
 		
 		QFTested.setQuestion("?");
-		assertEquals(QuestionFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
+		assertEquals(AnswerFragment.CONSTANT_FRAGMENT, QFTested.getFragmentType());
 		assertEquals("?", QFTested.getQuestion());
 	}
 	
