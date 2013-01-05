@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sectionList>
 	<list>
-		<section>
+		<section title="Lesson 1">
 			<list>
 				<test>
 					<question>Bonjour!</question>
@@ -29,7 +29,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 2">
 			<list>
 				<test>
 					<question>Bonjour, Boris !</question>
@@ -61,7 +61,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 3">
 			<list>
 				<test>
 					<question>Vous êtes russes?</question>
@@ -81,7 +81,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 4">
 			<list>
 				<test>
 					<question>Que fais-tu ?</question>
@@ -120,7 +120,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 5">
 			<list>
 				<test>
 					<question>С’[est] mon ami russe.</question>
@@ -144,7 +144,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 6">
 			<list>
 				<test>
 					<question>С’[est] mon frère.</question>
@@ -169,7 +169,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 7">
 			<list>
 				<test>
 					<question>Vous êtes mariée ? - Oui, je suis mariée.</question>
@@ -189,7 +189,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 8">
 			<list>
 				<test>
 					<question>Mon frère se marie.</question>
@@ -217,7 +217,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 9">
 			<list>
 				<test>
 					<question>Ce soir, tu es libre ?</question>
@@ -245,7 +245,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 10">
 			<list>
 				<test>
 					<question>Faites connaissance. Voici Léna.</question>
@@ -269,7 +269,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 11">
 			<list>
 				<test>
 					<question>Comment vous dire?</question>
@@ -293,7 +293,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 12">
 			<list>
 				<test>
 					<question>Allons au théâtre.</question>
@@ -321,7 +321,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 13">
 			<list>
 				<test>
 					<question>Comment ça va? (Comment est l’humeur ?)</question>
@@ -356,7 +356,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 14">
 			<list>
 				<test>
 					<question>Tu es libre ce soir ? (féminin)</question>
@@ -384,7 +384,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 15">
 			<list>
 				<test>
 					<question>À table, mes amis.</question>
@@ -413,7 +413,7 @@
 				</test>
 			</list>
 		</section>
-		<section>
+		<section title="Lesson 16">
 			<list>
 				<test>
 					<question>Dites-moi, s’il vous plaît, où est mon journal ?

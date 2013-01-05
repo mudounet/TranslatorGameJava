@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.mudounet.xml.SectionList;
+
 public class LessonTest {
 	
 	private Lesson lessonTested;
@@ -18,7 +20,8 @@ public class LessonTest {
 	@Test
 	public void testLoad() throws Exception {
 		lessonTested.load(ResourceManager.LoadFile("/lessons.xml"));
-		lessonTested.getList();
+		SectionList elts = lessonTested.getList();
+		elts.getList();
 	}
 
 	@Test
