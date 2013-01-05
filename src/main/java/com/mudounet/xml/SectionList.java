@@ -7,7 +7,7 @@ import org.simpleframework.xml.Root;
 
 @Root
 public class SectionList {
-	@ElementList
+	@ElementList(inline=true)
 	private List<Section> list;
 
 	/**

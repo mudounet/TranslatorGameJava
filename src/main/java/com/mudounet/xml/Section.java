@@ -12,7 +12,7 @@ public class Section {
 	@Attribute
 	private String title;
 
-	@ElementList
+	@ElementList(inline=true)
 	private List<Test> list;
 
 	/**

@@ -7,14 +7,14 @@ import org.junit.Test;
 
 import com.mudounet.xml.SectionList;
 
-public class LessonTest {
+public class LessonManagerTest {
 	
-	private Lesson lessonTested;
+	private LessonManager lessonTested;
 	
 
 	@Before
 	public void setUp() throws Exception {
-		lessonTested = new Lesson();
+		lessonTested = new LessonManager();
 	}
 
 	@Test
