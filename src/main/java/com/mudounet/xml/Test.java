@@ -3,6 +3,7 @@ package com.mudounet.xml;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
+
 @Root
 public class Test {
 
@@ -11,6 +12,9 @@ public class Test {
 	
 	@Element
 	private String answer;
+	
+	@Element(required=false)
+	private TestStat stats;
 
 	/**
 	 * @return the question

@@ -1,17 +1,12 @@
 package com.mudounet.core;
 
-public class StatManager {
+import java.io.OutputStream;
 
-	private void checkInitialValues() {
-		// TODO Auto-generated method stub
-	}
+public class StatManager {
 	
-	public boolean load() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
-	public boolean save() {
+	
+	public boolean save(OutputStream stream) {
 		// TODO Auto-generated method stub
 		return false;
 	}
