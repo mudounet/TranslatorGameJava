@@ -30,9 +30,4 @@ public class SectionListTest {
 		SectionList.save(sectionListTested, t);
 	}
 
-	@Test
-	public void testDisplayGlobalStats() {
-		fail("Not yet implemented");
-	}
-
 }
