@@ -1,4 +1,4 @@
-package com.mudounet.xml;
+package com.mudounet.xml.stats;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 @Root
-public class StatList {
+public class MeanList {
 	private static final int MAX_ITEMS = 6;
 	
 	@ElementList(inline=true)

@@ -1,8 +1,7 @@
-package com.mudounet.xml;
+package com.mudounet.xml.core;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
-
 
 @Root
 public class Test {
@@ -13,8 +12,7 @@ public class Test {
 	@Element
 	private String answer;
 	
-	@Element(required=false)
-	private TestStat stats;
+	private com.mudounet.xml.stats.Test stat;
 
 	/**
 	 * @return the question
@@ -43,7 +41,12 @@ public class Test {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	
-	
-	
+
+	public com.mudounet.xml.stats.Test getStat() {
+		return stat;
+	}
+
+	public void setStat(com.mudounet.xml.stats.Test stat) {
+		this.stat = stat;
+	}
 }

@@ -1,4 +1,4 @@
-package com.mudounet.xml;
+package com.mudounet.xml.core;
 
 import java.util.List;
 

@@ -1,17 +1,19 @@
-package com.mudounet.xml;
+package com.mudounet.xml.stats;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class StatListTest {
+import com.mudounet.xml.stats.MeanList;
+
+public class MeanListTest {
 	
-	StatList listTested;
+	MeanList listTested;
 
 	@Before
 	public void setUp() throws Exception {
-		listTested = new StatList();
+		listTested = new MeanList();
 	}
 
 	@Test
