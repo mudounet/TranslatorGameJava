@@ -16,7 +16,7 @@ public class ResourceManager {
 		// The InputStream opens the resourceId and sends it to the buffer
 	    //InputStream is = this.getResources().openRawResource(resourceId);
 		InputStream is = "".getClass().getResourceAsStream(filename);
-		if(is == null) Logger.error("No resources named \""+filename+"\" found");
+		if(is == null) Logger.warn("No resources named \""+filename+"\" found");
 		
 		return is;
 	}

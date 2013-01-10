@@ -4,7 +4,6 @@
 	<groupId>com.mudounet</groupId>
 	<artifactId>TranslatorGameJava</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>test</name>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -24,4 +23,5 @@
 		</dependency>
 	</dependencies>
 	<build />
+    <name>Translator Game (java)</name>
 </project>
