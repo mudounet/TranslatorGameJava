@@ -12,7 +12,7 @@ public class Test {
 	@Element
 	private String answer;
 	
-	private com.mudounet.xml.stats.Test stat;
+	private com.mudounet.xml.stats.TestStat stat;
 
 	/**
 	 * @return the question
@@ -42,11 +42,11 @@ public class Test {
 		this.answer = answer;
 	}
 
-	public com.mudounet.xml.stats.Test getStat() {
+	public com.mudounet.xml.stats.TestStat getStat() {
 		return stat;
 	}
 
-	public void setStat(com.mudounet.xml.stats.Test stat) {
+	public void setStat(com.mudounet.xml.stats.TestStat stat) {
 		this.stat = stat;
 	}
 }
