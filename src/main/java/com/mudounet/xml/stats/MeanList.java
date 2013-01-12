@@ -1,7 +1,6 @@
 package com.mudounet.xml.stats;
 
 import java.util.ArrayList;
-
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
@@ -9,7 +8,7 @@ import org.simpleframework.xml.Root;
 public class MeanList {
 	private static final int MAX_ITEMS = 6;
 	
-	@ElementList(inline=true)
+	@ElementList(inline=true, required=false)
 	private ArrayList<Float> list = new ArrayList<Float>();
 	
 	public void add(float value) {

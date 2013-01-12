@@ -2,6 +2,7 @@ package com.mudounet.xml.stats;
 
 import java.util.Date;
 import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root
@@ -18,7 +19,8 @@ public class TestStat implements Comparable<TestStat> {
     private Date lastUpdate = new Date(0);
     @Attribute
     private Date lastFailed = new Date(0);
-    @Attribute
+    
+    @Element
     private MeanList lastResults = new MeanList();
 
     public int getFailed() {

@@ -15,26 +15,14 @@ import org.slf4j.LoggerFactory;
 public class TestList {
 
     private static final Logger Logger = LoggerFactory.getLogger(TestList.class);
+    
     @ElementList(inline = true)
-    private List<TestStat> list = new ArrayList<TestStat>();
+    protected List<TestStat> list = new ArrayList<TestStat>();
 
     public void setList(List<TestStat> list) {
         this.list = list;
-
-        associatedList = new HashMap<String, TestStat>();
-        for (TestStat stat : list) {
-            associatedList.put(stat.getKey(), stat);
-        }
     }
-    Map<String, TestStat> associatedList;
-
-    public Map<String, TestStat> getAssociatedList() {
-        return associatedList;
-    }
-
-    public TestList() {
-    }
-
+    
     /**
      * @return the list
      */
@@ -42,45 +30,14 @@ public class TestList {
         return list;
     }
 
-    public void createTestStat(String key) throws Exception {
-        if (associatedList.containsKey(key)) {
-            Logger.error("Key \"" + key + " is already inserted.");
-            throw new Exception("Key \"" + key + " is already inserted.");
-        }
-
-        TestStat t = new TestStat();
-        t.setKey(key);
-        list.add(t);
-
-        associatedList.put(key, t);
-    }
-
-    public TestStat getItemByKey(String key, boolean autocreate) throws Exception {
-        if (!associatedList.containsKey(key) && autocreate) {
-            Logger.debug("Key \"" + key + " will be created automatically.");
-            this.createTestStat(key);
-        }
-
-        return associatedList.get(key);
-    }
-
-    public boolean save(OutputStream stream) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    public TestStat selectNextTest() {
-        Collections.sort(list);
-        return null;
-    }
-
-    public static TestList load(InputStream stream) throws Exception {
+    public void save(OutputStream stream) throws Exception {
         Serializer serializer = new Persister();
-        return serializer.read(TestList.class, stream);
+        serializer.write(this, stream);
     }
 
-    public int displayGlobalStats() {
-        // TODO Auto-generated method stub
-        return -1;
+    public void load(InputStream stream) throws Exception {
+        Serializer serializer = new Persister();
+        TestList t = serializer.read(TestList.class, stream);
+        this.list = t.list;
     }
 }

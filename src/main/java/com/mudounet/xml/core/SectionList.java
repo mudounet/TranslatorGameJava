@@ -28,19 +28,31 @@ public class SectionList {
         return list;
     }
 
+    public void setList(List<Section> list) {
+        this.list = list;
+        associatedList = new HashMap<String, Test>();
+        for (int sectionIdx = 0; sectionIdx < list.size(); sectionIdx++) {
+            Section section = list.get(sectionIdx);
+
+            for (int testIdx = 0; testIdx < section.getList().size(); testIdx++) {
+                Test test = section.getList().get(testIdx);
+                this.associatedList.put(sectionIdx + "." + testIdx, test);
+            }
+        }
+    }
+
     public Test getItemByKey(String key) throws Exception {
         return associatedList.get(key);
     }
 
     /**
      * @param stream stream to read from
+     * @return
      * @throws Exception
      */
     public static SectionList load(InputStream stream) throws Exception {
         Serializer serializer = new Persister();
         return serializer.read(SectionList.class, stream);
-
-
     }
 
     private void load2(InputStream stream) {
@@ -50,7 +62,7 @@ public class SectionList {
 
             for (int testIdx = 0; testIdx < section.getList().size(); testIdx++) {
                 Test test = section.getList().get(testIdx);
-                this.associatedList.put(sectionIdx+"."+testIdx, test);
+                this.associatedList.put(sectionIdx + "." + testIdx, test);
             }
         }
     }
