@@ -7,6 +7,7 @@ package com.mudounet.xml.stats;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,12 +43,19 @@ public class MappedTestListTest {
     @Test
     public void testGetLinkedList() {
         System.out.println("TEST : getLinkedList");
-        MappedTestList instance = new MappedTestList();
-        Map expResult = null;
-        Map result = instance.getLinkedList();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Map<String, TestStat> expResult = new HashMap<String, TestStat>();
+        expResult.put("0.1", new TestStat("0.1"));
+        expResult.put("0.2", new TestStat("0.2"));
+        expResult.put("1.1", new TestStat("1.1"));
+        expResult.put("1.2", new TestStat("1.2"));
+        expResult.put("2.1", new TestStat("2.1"));
+        expResult.put("2.2", new TestStat("2.2"));
+        Map<String, TestStat> result = instance.getLinkedList();
+        assertEquals(expResult.size(), result.size());
+        
+        for(String key : expResult.keySet()) {
+        	assertEquals(expResult.get(key).getKey(), result.get(key).getKey());
+        }
     }
 
     /**
@@ -115,12 +123,14 @@ public class MappedTestListTest {
         t.setKey("0.1");
         
         list.add(t);
-        assertEquals(0, instance.getList().size());
+        assertEquals(1, instance.getList().size());
         assertEquals(instance.getList().size(), instance.getLinkedList().keySet().size());
 
         instance.setList(list);
         assertEquals(1, instance.getList().size());
         assertEquals(instance.getList().size(), instance.getLinkedList().keySet().size());
+        
+        fail("Add mechanism to update mapped list when a new element is added directly inside ArrayList");
     }
 
     /**

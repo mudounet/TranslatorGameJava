@@ -23,7 +23,14 @@ public class TestStat implements Comparable<TestStat> {
     @Element
     private MeanList lastResults = new MeanList();
 
-    public int getFailed() {
+    public TestStat(String key) {
+    	this.setKey(key);
+	}
+
+	public TestStat() {
+	}
+
+	public int getFailed() {
         return failed;
     }
 

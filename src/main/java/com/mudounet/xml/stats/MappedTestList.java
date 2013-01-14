@@ -22,15 +22,17 @@ public class MappedTestList extends TestList {
     private Map<String, TestStat> linkedList = new HashMap<String, TestStat>();
     
     public Map<String, TestStat> getLinkedList() {
+    	this.buildLinkedList();
         return linkedList;
     }
     
     public TestStat getItemByKey(String key, boolean autocreate) throws Exception {
-        if (!linkedList.containsKey(key) && autocreate) {
+        this.buildLinkedList();
+    	if (!linkedList.containsKey(key) && autocreate) {
             Logger.debug("Key \"" + key + " will be created automatically.");
             this.createTestStat(key);
         }
-
+        
         return linkedList.get(key);
     }
 
@@ -53,6 +55,8 @@ public class MappedTestList extends TestList {
     		this.linkedList = null;
     		return;
     	}
+    	if(this.linkedList != null && this.linkedList.size() == this.list.size()) return;
+    	
         this.linkedList = new HashMap<String, TestStat>();
         
 		for(TestStat testStat : this.list) {
