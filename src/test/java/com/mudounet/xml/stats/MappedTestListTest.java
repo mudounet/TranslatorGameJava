@@ -8,7 +8,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map;
+
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +27,12 @@ public class MappedTestListTest {
     @Before
     public void setUp() throws Exception {
         instance = new MappedTestList();
-        instance.load(new FileInputStream("teststream.xml"));
+        instance.createTestStat("0.1");
+        instance.createTestStat("0.2");
+        instance.createTestStat("1.1");
+        instance.createTestStat("1.2");
+        instance.createTestStat("2.1");
+        instance.createTestStat("2.2");
     }
 
     /**
@@ -32,7 +40,7 @@ public class MappedTestListTest {
      */
     @Test
     public void testGetLinkedList() {
-        System.out.println("getLinkedList");
+        System.out.println("TEST : getLinkedList");
         MappedTestList instance = new MappedTestList();
         Map expResult = null;
         Map result = instance.getLinkedList();
@@ -46,15 +54,20 @@ public class MappedTestListTest {
      */
     @Test
     public void testGetItemByKey() throws Exception {
-        System.out.println("getItemByKey");
-        String key = "";
-        boolean autocreate = false;
-        MappedTestList instance = new MappedTestList();
-        TestStat expResult = null;
-        TestStat result = instance.getItemByKey(key, autocreate);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("TEST : getItemByKey");
+        String key = "0.1";
+        TestStat expResult = new TestStat();
+        expResult.setKey(key);
+        TestStat result = instance.getItemByKey(key, false);
+        assertEquals(expResult.getKey(), result.getKey());
+        
+        key = "4.1";
+        expResult.setKey(key);
+        result = instance.getItemByKey(key, false);
+        assertNull(result);
+        
+        result = instance.getItemByKey(key, true);
+        assertEquals(expResult.getKey(), result.getKey());
     }
 
     /**
@@ -62,12 +75,19 @@ public class MappedTestListTest {
      */
     @Test
     public void testCreateTestStat() throws Exception {
-        System.out.println("createTestStat");
-        String key = "";
-        MappedTestList instance = new MappedTestList();
+        System.out.println("TEST : createTestStat");
+        String key = "3.1";
+        
+        assertNull(instance.getItemByKey("3.1", false));
         instance.createTestStat(key);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(instance.getItemByKey("3.1", false));
+    }
+    
+    @Test(expected=Exception.class)
+    public void testCreateTestStatwithError() throws Exception {
+        System.out.println("TEST : createTestStat With Exception");
+        String key = "2.1";
+        instance.createTestStat(key);
     }
 
     /**
@@ -75,7 +95,7 @@ public class MappedTestListTest {
      */
     @Test
     public void testSetList() {
-        System.out.println("setList");
+        System.out.println("TEST : setList");
         List<TestStat> list = null;
         MappedTestList instance = new MappedTestList();
         instance.setList(list);
@@ -89,10 +109,16 @@ public class MappedTestListTest {
      */
     @Test
     public void testLoad() throws Exception {
-        System.out.println("load");
-        FileInputStream stream = new FileInputStream("/teststream.xml");
-        //instance.load(stream);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("TEST : load");
+        
+        assertEquals(6, instance.getList().size());
+        instance.save(new FileOutputStream("teststream.xml"));
+        instance = new MappedTestList();
+        assertEquals(0, instance.getList().size());
+        
+        
+        FileInputStream stream = new FileInputStream("teststream.xml");
+        instance.load(stream);
+        assertEquals(6, instance.getList().size());
     }
 }

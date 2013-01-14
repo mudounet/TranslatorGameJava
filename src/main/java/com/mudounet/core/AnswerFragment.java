@@ -1,7 +1,5 @@
 package com.mudounet.core;
 
-import java.util.ArrayList;
-import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +26,7 @@ public class AnswerFragment {
 	public AnswerFragment() {
 	}
 
-	public AnswerFragment(String text) throws Exception {
+	public AnswerFragment(String text) throws MalFormedSentence {
 		setQuestion(text);
 	}
 
@@ -89,7 +87,7 @@ public class AnswerFragment {
 	 *            the text to set
 	 * @throws Exception
 	 */
-	public void setQuestion(String text) throws Exception {
+	public void setQuestion(String text) throws MalFormedSentence {
 
 		this.fragmentType = 0;
 		Pattern patt = Pattern.compile("^#(\\p{L}+)$");
@@ -109,7 +107,7 @@ public class AnswerFragment {
 			setAnswer(this.question);
 		} else {
 			Logger.error("\"" + text + "\" is not valid!");
-			throw new Exception("\"" + text + "\" is not valid!");
+			throw new MalFormedSentence("\"" + text + "\" is not valid!");
 		}
 
 	}

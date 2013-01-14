@@ -32,7 +32,7 @@ public class Question {
 
 
 
-	public void setAnswer(String expectedAnswer) throws Exception {
+	public void setAnswer(String expectedAnswer) throws MalFormedSentence {
 		ArrayList<AnswerFragment> elts = new ArrayList<AnswerFragment>();
 
 		CharSequence cs = new String(expectedAnswer);

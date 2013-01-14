@@ -5,8 +5,6 @@ package com.mudounet.core;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,15 +23,15 @@ public class AnswerFragmentTest {
 
 	/**
 	 * Test method for {@link com.mudounet.core.AnswerFragment#validate()}.
-	 * @throws Exception 
+	 * @throws MalFormedSentence
 	 */
 	@Test
-	public void testValidate() throws Exception {
+	public void testValidate() throws MalFormedSentence {
 		testFragmentValidation("testElement", new String[] {"TESTElennt", "testemnet", "etlmnet"}, new int[] {2, 4, 6});
 		testFragmentValidation("Познакомьтесь", new String[] {"познrtомьтес", "поerнакьтесь", "поerнакьтеre"}, new int[] {3, 4, 6});
 	}
 	
-	private void testFragmentValidation(String origString, String[] answers, int[] results) throws Exception {
+	private void testFragmentValidation(String origString, String[] answers, int[] results) throws MalFormedSentence {
 		QFTested = new AnswerFragment(origString);
 		assertEquals(origString.length(), QFTested.validate());
 		
@@ -51,7 +49,7 @@ public class AnswerFragmentTest {
 	 * @throws Exception 
 	 */
 	@Test
-	public void testGetFragmentType() throws Exception {
+	public void testGetFragmentType() throws MalFormedSentence {
 		QFTested.setQuestion("Познакомьтесь");
 		assertEquals(AnswerFragment.EDITABLE_FRAGMENT, QFTested.getFragmentType());
 		assertEquals("Познакомьтесь", QFTested.getQuestion());
@@ -78,18 +76,18 @@ public class AnswerFragmentTest {
 		assertEquals("?", QFTested.getQuestion());
 	}
 	
-	@Test(expected=Exception.class)
-	public void testGetFragmentType1() throws Exception {
+	@Test(expected=MalFormedSentence.class)
+	public void testGetFragmentType1() throws MalFormedSentence {
 		QFTested.setQuestion("");
 	}
 	
-	@Test(expected=Exception.class)
-	public void testGetFragmentType2() throws Exception {
+	@Test(expected=MalFormedSentence.class)
+	public void testGetFragmentType2() throws MalFormedSentence {
 		QFTested.setQuestion(" Познакомьтесь  ");
 	}
 	
-	@Test(expected=Exception.class)
-	public void testGetFragmentType3() throws Exception {
+	@Test(expected=MalFormedSentence.class)
+	public void testGetFragmentType3() throws MalFormedSentence {
 		QFTested.setQuestion(" #Познакомьтесь  ");
 	}
 
