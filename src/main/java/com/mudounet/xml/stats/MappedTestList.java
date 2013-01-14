@@ -49,7 +49,15 @@ public class MappedTestList extends TestList {
 
     
     private void buildLinkedList() {
+    	if(this.list == null) {
+    		this.linkedList = null;
+    		return;
+    	}
         this.linkedList = new HashMap<String, TestStat>();
+        
+		for(TestStat testStat : this.list) {
+        	this.linkedList.put(testStat.getKey(), testStat);
+        }
         
     }
 
@@ -64,4 +72,6 @@ public class MappedTestList extends TestList {
         super.load(stream);
         this.setList(this.getList());
     }
+    
+    
 }

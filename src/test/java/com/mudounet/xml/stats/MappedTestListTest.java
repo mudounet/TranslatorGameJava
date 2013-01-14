@@ -6,6 +6,7 @@ package com.mudounet.xml.stats;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -96,11 +97,30 @@ public class MappedTestListTest {
     @Test
     public void testSetList() {
         System.out.println("TEST : setList");
+
+        assertEquals(6, instance.getList().size());
+        assertEquals(instance.getList().size(), instance.getLinkedList().keySet().size());
+        
         List<TestStat> list = null;
-        MappedTestList instance = new MappedTestList();
         instance.setList(list);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNull(instance.getList());
+        assertNull(instance.getLinkedList());
+        
+        list = new ArrayList<TestStat>();
+        instance.setList(list);
+        assertEquals(0, instance.getList().size());
+        assertEquals(instance.getList().size(), instance.getLinkedList().keySet().size());
+        
+        TestStat t = new TestStat();
+        t.setKey("0.1");
+        
+        list.add(t);
+        assertEquals(0, instance.getList().size());
+        assertEquals(instance.getList().size(), instance.getLinkedList().keySet().size());
+
+        instance.setList(list);
+        assertEquals(1, instance.getList().size());
+        assertEquals(instance.getList().size(), instance.getLinkedList().keySet().size());
     }
 
     /**
