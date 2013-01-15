@@ -11,8 +11,6 @@ public class Test {
 	
 	@Element
 	private String answer;
-	
-	private com.mudounet.xml.stats.TestStat stat;
 
 	/**
 	 * @return the question
@@ -40,13 +38,5 @@ public class Test {
 	 */
 	public void setAnswer(String answer) {
 		this.answer = answer;
-	}
-
-	public com.mudounet.xml.stats.TestStat getStat() {
-		return stat;
-	}
-
-	public void setStat(com.mudounet.xml.stats.TestStat stat) {
-		this.stat = stat;
 	}
 }
