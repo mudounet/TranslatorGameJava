@@ -5,7 +5,6 @@
 package com.mudounet.xml.stats;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +41,7 @@ public class MappedTestList extends TestList {
             throw new Exception("Key \"" + key + " is already inserted.");
         }
 
-        TestStat t = new TestStat();
-        t.setKey(key);
+        TestStat t = new TestStat(key);
         this.getList().add(t);
 
         linkedList.put(key, t);
@@ -76,6 +74,4 @@ public class MappedTestList extends TestList {
         super.load(stream);
         this.setList(this.getList());
     }
-    
-    
 }

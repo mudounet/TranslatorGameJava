@@ -31,12 +31,32 @@ public class TestList {
 
     public void save(OutputStream stream) throws Exception {
         Serializer serializer = new Persister();
+        Collections.sort(list);
         serializer.write(this, stream);
     }
 
     public void load(InputStream stream) throws Exception {
-        Serializer serializer = new Persister();
-        TestList t = serializer.read(TestList.class, stream);
-        this.list = t.list;
+        if(stream == null) {
+            this.list = new ArrayList<TestStat>();
+        }
+        else {   
+            Serializer serializer = new Persister();
+            TestList t = serializer.read(TestList.class, stream);
+            this.list = t.list;
+        }
+    }
+    
+    public float mean() {
+        float mean = 0;
+        for(TestStat t : this.list) {
+            mean += t.mean();
+        }
+        
+        return mean  / this.list.size();
+    }
+    
+    public TestStat getSelectedStat() {
+        Collections.sort(list);
+        return this.list.get(0);
     }
 }

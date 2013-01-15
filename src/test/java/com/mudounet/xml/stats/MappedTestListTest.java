@@ -61,8 +61,7 @@ public class MappedTestListTest {
     public void testGetItemByKey() throws Exception {
         System.out.println("TEST : getItemByKey");
         String key = "0.1";
-        TestStat expResult = new TestStat();
-        expResult.setKey(key);
+        TestStat expResult = new TestStat(key);
         TestStat result = instance.getItemByKey(key, false);
         assertEquals(expResult.getKey(), result.getKey());
         
@@ -115,8 +114,7 @@ public class MappedTestListTest {
         assertEquals(0, instance.getList().size());
         assertEquals(instance.getList().size(), instance.getLinkedList().keySet().size());
         
-        TestStat t = new TestStat();
-        t.setKey("0.1");
+        TestStat t = new TestStat("0.1");
         
         list.add(t);
         assertEquals(1, instance.getList().size());

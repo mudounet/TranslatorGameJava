@@ -1,90 +1,81 @@
 package com.mudounet.core;
 
+import com.mudounet.xml.core.Test;
+import com.mudounet.xml.stats.TestStat;
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Sentence {
-	
-	private static final Logger Logger = LoggerFactory
-			.getLogger(Sentence.class);
-	private ArrayList<AnswerFragment> answerList;
-	private String answer;
-	
-	/**
-	 * @return the answer
-	 */
-	public String getAnswer() {
-		return answer;
-	}
 
-	private String question;
+    private static final Logger Logger = LoggerFactory
+            .getLogger(Sentence.class);
+    private ArrayList<AnswerFragment> answerList;
+    private String answer;
+    private TestStat stat;
+    private Test test;
 
+    public ArrayList<AnswerFragment> getAnswerList() {
+        return answerList;
+    }
 
-	public ArrayList<AnswerFragment> getAnswerList() {
-		return answerList;
-	}
-	
-	public String getQuestion() {
-		return question;
-	}
+    private void setAnswerList(String expectedAnswer) throws MalFormedSentence {
+        ArrayList<AnswerFragment> elts = new ArrayList<AnswerFragment>();
 
+        CharSequence cs = new String(expectedAnswer);
+        int lastCharType = 0;
 
+        StringBuilder l = new StringBuilder();
+        for (int x = 0; x < cs.length(); x++) {
+            char myChar = cs.charAt(x);
 
-	public void setAnswer(String expectedAnswer) throws MalFormedSentence {
-		ArrayList<AnswerFragment> elts = new ArrayList<AnswerFragment>();
+            int charType;
 
-		CharSequence cs = new String(expectedAnswer);
-		int lastCharType = 0;
+            if (Character.toString(myChar).matches("[\\p{L}#]")) {
+                charType = 1;
+            } else {
+                charType = 2;
+            }
 
-		StringBuilder l = new StringBuilder();
-		for (int x = 0; x < cs.length(); x++) {
-			char myChar = cs.charAt(x);
+            if (lastCharType == 0) {
+                lastCharType = charType;
+            }
 
-			int charType;
+            if (charType != lastCharType) {
+                Logger.debug("Found match : \"" + l.toString() + "\"");
+                AnswerFragment fragment = new AnswerFragment(l.toString());
+                elts.add(fragment);
 
-			if (Character.toString(myChar).matches("[\\p{L}#]"))
-				charType = 1;
-			else
-				charType = 2;
+                l = new StringBuilder();
+            }
+            l.append(myChar);
+            lastCharType = charType;
+        }
 
-			if (lastCharType == 0)
-				lastCharType = charType;
+        Logger.debug("Found last match : \"" + l.toString() + "\"");
+        AnswerFragment fragment = new AnswerFragment(l.toString());
+        elts.add(fragment);
 
-			if (charType != lastCharType) {
-				Logger.debug("Found match : \"" + l.toString() + "\"");
-				AnswerFragment fragment = new AnswerFragment(l.toString());
-				elts.add(fragment);
+        this.answerList = elts;
+        this.answer = expectedAnswer;
+    }
 
-				l = new StringBuilder();
-			}
-			l.append(myChar);
-			lastCharType = charType;
-		}
+    public int getResults() {
+        throw new NotImplementedException();
+    }
 
-		Logger.debug("Found last match : \"" + l.toString() + "\"");
-		AnswerFragment fragment = new AnswerFragment(l.toString());
-		elts.add(fragment);
+    public TestStat getStat() {
+        return stat;
+    }
 
-		this.setAnswerList(elts);
-		this.answer = expectedAnswer;
-	}
+    public void setStat(TestStat stat) {
+        this.stat = stat;
+    }
 
-	private void setAnswerList(ArrayList<AnswerFragment> answerList) {
-		this.answerList = answerList;
-	}
-
-
-
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-
-
-
-	public int getResults() {
-		// TODO Auto-generated method stub
-		return -1;
-	}
+    public void setTest(Test test) throws MalFormedSentence {
+        this.test = test;
+        this.setAnswerList(test.getAnswer());
+    }
 }

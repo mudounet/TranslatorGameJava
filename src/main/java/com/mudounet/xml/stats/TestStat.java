@@ -10,7 +10,6 @@ public class TestStat implements Comparable<TestStat> {
 
     @Attribute
     private String key = "";
-    
     @Attribute
     private int failed = 0;
     @Attribute
@@ -19,55 +18,34 @@ public class TestStat implements Comparable<TestStat> {
     private Date lastUpdate = new Date(0);
     @Attribute
     private Date lastFailed = new Date(0);
-    
     @Element
     private MeanList lastResults = new MeanList();
 
     public TestStat(String key) {
-    	this.setKey(key);
-	}
-
-	public TestStat() {
-	}
-
-	public int getFailed() {
-        return failed;
+        setKey(key);
+    }
+    
+    public TestStat() {
     }
 
-    public void setFailed(int failed) {
-        this.failed = failed;
+    public int getFailed() {
+        return failed;
     }
 
     public Date getLastFailed() {
         return lastFailed;
     }
 
-    public void setLastFailed(Date lastFailed) {
-        this.lastFailed = lastFailed;
-    }
-
     public MeanList getLastResults() {
         return lastResults;
-    }
-
-    public void setLastResults(MeanList lastResults) {
-        this.lastResults = lastResults;
     }
 
     public Date getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
-    }
-
     public int getTotal() {
         return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
     }
 
     public int compareTo(TestStat o) {
@@ -90,8 +68,22 @@ public class TestStat implements Comparable<TestStat> {
     public String getKey() {
         return key;
     }
-    
+
     public void setKey(String key) {
         this.key = key;
+    }
+    
+    public void addStat(float result) {
+        this.lastResults.add(result);
+        this.lastUpdate = new Date();
+        this.total++;
+        if(result < 100.0) {
+            this.failed++;
+            this.lastFailed = new Date();
+        }
+    }
+
+    public float mean() {
+        return this.lastResults.mean();
     }
 }
