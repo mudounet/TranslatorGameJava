@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Question {
+public class Sentence {
 	
 	private static final Logger Logger = LoggerFactory
-			.getLogger(Question.class);
+			.getLogger(Sentence.class);
 	private ArrayList<AnswerFragment> answerList;
 	private String answer;
 	

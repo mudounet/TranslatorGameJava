@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-public class QuestionTest {
+public class SentenceTest {
 	
-	Question questionTested;
+	Sentence questionTested;
 
 	@Before
 	public void setup() {
-		questionTested = new Question();   
+		questionTested = new Sentence();   
 	}
 	
 	/**

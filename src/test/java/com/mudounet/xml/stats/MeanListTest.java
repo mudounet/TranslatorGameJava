@@ -1,11 +1,8 @@
 package com.mudounet.xml.stats;
 
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
-
-import com.mudounet.xml.stats.MeanList;
 
 public class MeanListTest {
 	

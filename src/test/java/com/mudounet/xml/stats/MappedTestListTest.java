@@ -10,11 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -129,8 +125,6 @@ public class MappedTestListTest {
         instance.setList(list);
         assertEquals(1, instance.getList().size());
         assertEquals(instance.getList().size(), instance.getLinkedList().keySet().size());
-        
-        fail("Add mechanism to update mapped list when a new element is added directly inside ArrayList");
     }
 
     /**

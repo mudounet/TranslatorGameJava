@@ -3,7 +3,6 @@ package com.mudounet.xml.stats;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
-
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Serializer;
