@@ -47,6 +47,10 @@ public class TestList {
     }
     
     public float mean() {
+        if(list.isEmpty()) {
+            return 0;
+        }
+        
         float mean = 0;
         for(TestStat t : this.list) {
             mean += t.mean();
