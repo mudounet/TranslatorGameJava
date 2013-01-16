@@ -1,34 +1,17 @@
 package com.mudounet.core;
 
 import com.mudounet.xml.core.MappedSectionList;
-import com.mudounet.xml.core.Test;
 import com.mudounet.xml.stats.MappedTestList;
-import com.mudounet.xml.stats.TestStat;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Lesson {
-
-    private static class TestWithStats {
-
-        public Test test;
-        public TestStat stat;
-
-        public TestWithStats(Test test, TestStat stat) {
-            this.test = test;
-            this.stat = stat;
-        }
-
-        private TestWithStats() {
-        }
-    }
-    private MappedSectionList sectionList = new MappedSectionList();
-    private MappedTestList statList = new MappedTestList();
-    private Map<String, TestWithStats> linkedList;
-    private float initialStat = 0.0f;
+    protected MappedSectionList sectionList = new MappedSectionList();
+    protected MappedTestList statList = new MappedTestList();
+    protected Map<String, Sentence> linkedList;
+    protected float initialStat = 0.0f;
 
     public Lesson(InputStream lessonStream) throws Exception {
         loadLesson(lessonStream);
@@ -43,7 +26,6 @@ public class Lesson {
 
     public void loadStats(InputStream statsStream) throws Exception {
         statList.load(statsStream);
-
         setTestStatList(statList);
     }
 
@@ -53,9 +35,9 @@ public class Lesson {
             this.statList = new MappedTestList();
         }
 
-        linkedList = new HashMap<String, TestWithStats>();
+        linkedList = new HashMap<String, Sentence>();
         for(String key : this.sectionList.getLinkedList().keySet()) {
-            linkedList.put(key, new TestWithStats(this.sectionList.getItemByKey(key), this.statList.getItemByKey(key, true)));
+            linkedList.put(key, new Sentence(this.sectionList.getItemByKey(key), this.statList.getItemByKey(key, true)));
         }
         this.initialStat = getStat();
     }
@@ -63,14 +45,7 @@ public class Lesson {
     public Sentence getNextSentence() throws MalFormedSentence {
         
         String selectedKey = this.statList.getSelectedStat().getKey();
-        TestWithStats testWithStats = this.linkedList.get(selectedKey);
-        
-        
-        
-        Sentence s = new Sentence();
-        s.setTest(testWithStats.test);
-        s.setStat(testWithStats.stat);
-        return s;
+        return this.linkedList.get(selectedKey);
     }
     
     public float getInitialStat() {

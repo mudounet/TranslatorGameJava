@@ -4,6 +4,7 @@
  */
 package com.mudounet.core;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -18,7 +19,7 @@ public class LessonTest {
     
     @Before
     public void setUp() throws Exception {
-        instance = new Lesson(ResourceManager.LoadFile("/lessons.xml"));
+        instance = new Lesson(ResourceManager.LoadFile("/lessons-test.xml"));
     }
     
     Lesson instance;
@@ -29,7 +30,7 @@ public class LessonTest {
     @Test
     public void testLoadLesson() throws Exception {
         System.out.println("TEST : loadLesson");
-        instance.loadLesson(ResourceManager.LoadFile("/lessons.xml"));
+        instance.loadLesson(ResourceManager.LoadFile("/lessons-test.xml"));
     }
 
     /**
@@ -46,22 +47,31 @@ public class LessonTest {
         assertEquals(0, instance.getStat(), 0.001f);
         
         s = instance.getNextSentence();
-        s.getStat().addStat(100f);
+        s.addResult(100f);
         
         assertEquals(0, instance.getInitialStat(), 0.001f);
-        float currentValue = instance.getStat();
-        assertTrue(currentValue > 0.0f);
+        float lastValue = instance.getStat();
+        assertTrue(lastValue > 0.0f);
+        
+        s = instance.getNextSentence();
+        s.addResult(100f);
+        assertTrue(instance.getStat() > lastValue);
+        lastValue = instance.getStat();
         
         instance.saveStats(new FileOutputStream("lesson-stats.xml"));
-        instance.loadStats(ResourceManager.LoadFile("lesson-stats.xml"));
+        instance.loadStats(new FileInputStream("lesson-stats.xml"));
         
-        assertEquals(currentValue, instance.getInitialStat(), 0.001f);
-        assertTrue(instance.getStat() > 0.0f);
+        assertEquals(lastValue, instance.getInitialStat(), 0.001f);
+        assertEquals(instance.getInitialStat(), instance.getStat(), 0.001f);
         
-        assertEquals(25, instance.getInitialStat());
+        s = instance.getNextSentence();
+        s.addResult(100f);
+        instance.getStat();
         
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(100f, s.getStat().mean(), 0.0001f);
+        
+        assertEquals(lastValue, instance.getInitialStat(), 0.001f);
+        assertNotEquals(instance.getStat(), instance.getInitialStat(), 0.001f);
     }
 
     /**
@@ -69,7 +79,7 @@ public class LessonTest {
      */
     @Test
     public void testGetNextSentence() throws MalFormedSentence {
-        System.out.println("getNextSentence");
+        System.out.println("TEST : getNextSentence");
         Sentence expResult = null;
         Sentence result = instance.getNextSentence();
         assertEquals(expResult, result);
