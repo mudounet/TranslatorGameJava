@@ -4,6 +4,9 @@
  */
 package com.mudounet.xml.stats;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,5 +55,61 @@ public class TestListTest {
         
         t.addResult(0);
         assertEquals(((100/3)+(100/3))/2, instance.mean(), 1f);
+    }
+
+    /**
+     * Test of save method, of class TestList.
+     */
+    @Test
+    public void testSave() throws Exception {
+        System.out.println("save");
+        OutputStream stream = null;
+        TestList instance = new TestList();
+        instance.save(stream);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of load method, of class TestList.
+     */
+    @Test
+    public void testLoad() throws Exception {
+        System.out.println("load");
+        InputStream stream = null;
+        TestList instance = new TestList();
+        instance.load(stream);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getSelectedStat method, of class TestList.
+     */
+    @Test
+    public void testGetSelectedStat() {
+        System.out.println("getSelectedStat");
+        TestList instance = new TestList();
+        TestStat expResult = null;
+        TestStat result = instance.getSelectedStat();
+        
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of getSelectedStat method, of class TestList.
+     */
+    @Test
+    public void testOrderingStats() {
+        System.out.println("getSelectedStat");
+        TestList instance = new TestList();
+        TestStat expResult = null;
+        TestStat result = instance.getSelectedStat();
+        
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 }
