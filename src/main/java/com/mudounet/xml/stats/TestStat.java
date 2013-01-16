@@ -73,7 +73,7 @@ public class TestStat implements Comparable<TestStat> {
         this.key = key;
     }
     
-    public void addStat(float result) {
+    public void addResult(float result) {
         this.lastResults.add(result);
         this.lastUpdate = new Date();
         this.total++;
@@ -86,4 +86,11 @@ public class TestStat implements Comparable<TestStat> {
     public float mean() {
         return this.lastResults.mean();
     }
+
+    @Override
+    public String toString() {
+        return "TestStat{" + "key=" + key + ", mean=" + lastResults.mean() + "}@"+this.hashCode();
+    }
+    
+    
 }
