@@ -134,13 +134,82 @@ public class MappedTestListTest {
         System.out.println("TEST : load");
         
         assertEquals(6, instance.getList().size());
-        instance.save(new FileOutputStream("teststream.xml"));
+        instance.save(new FileOutputStream("testOutput.xml"));
         instance = new MappedTestList();
         assertEquals(0, instance.getList().size());
         
-        
-        FileInputStream stream = new FileInputStream("teststream.xml");
+        FileInputStream stream = new FileInputStream("testOutput.xml");
         instance.load(stream);
         assertEquals(6, instance.getList().size());
+    }
+    
+        /**
+     * Test of mean method, of class TestList.
+     */
+    @Test
+    public void testMean() {
+        System.out.println("TEST : mean");
+        float expResult = 0.0F;
+        instance = new MappedTestList();
+        assertEquals(expResult, instance.mean(), 0.0);
+        
+        TestStat t = new TestStat();
+        t.addResult(100f);
+        instance.getList().add(t);
+        assertEquals(100, instance.mean(), 0.001f);
+        
+        t.addResult(0.0f);
+        assertEquals(50, instance.mean(), 0.001f);
+        
+        t.addResult(0.0f);
+        assertEquals(100/3f, instance.mean(), 1f);
+        
+        t = new TestStat();
+        t.addResult(100f);
+        instance.getList().add(t);
+        assertEquals(((100/3)+100)/2, instance.mean(), 1f);
+        
+        t.addResult(0);
+        assertEquals(((100/3)+50)/2, instance.mean(), 1f);
+        
+        t.addResult(0);
+        assertEquals(((100/3)+(100/3))/2, instance.mean(), 1f);
+    }
+    
+        /**
+     * Test of mean method, of class TestList.
+     */
+    @Test
+    public void testMeanWithKeys() throws Exception {
+        System.out.println("TEST : mean");
+        float expResult = 0.0F;
+        instance = new MappedTestList();
+        assertEquals(expResult, instance.mean(), 0.0);
+        
+        TestStat t = instance.getItemByKey("0.1", true);
+        t.addResult(100f);
+        assertEquals(100, instance.mean(), 0.001f);
+        
+        t.addResult(0.0f);
+        assertEquals(50, instance.mean(), 0.001f);
+        
+        t.addResult(0.0f);
+        assertEquals(100/3f, instance.mean(), 1f);
+        
+        t = instance.getItemByKey("0.2", true);
+        t.addResult(100f);
+        assertEquals(((100/3)+100)/2, instance.mean(), 1f);
+        
+        t.addResult(0);
+        assertEquals(((100/3)+50)/2, instance.mean(), 1f);
+        
+        t.addResult(0);
+        assertEquals(((100/3)+(100/3))/2, instance.mean(), 1f);
+        
+        t = instance.getItemByKey("1.3", true);
+        assertEquals(((100/3)+(100/3))/3, instance.mean(), 1f);
+        
+        t = instance.getItemByKey("1.4", true);
+        assertEquals(((100/3)+(100/3))/4, instance.mean(), 1f);
     }
 }
