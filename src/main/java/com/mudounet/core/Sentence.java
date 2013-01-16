@@ -17,6 +17,14 @@ public class Sentence {
     private TestStat stat;
     private Test test;
 
+    public Sentence(Test test, TestStat stat) throws MalFormedSentence {
+        this.setTest(test);
+        this.setStat(stat);
+    }
+
+    public Sentence() {
+    }
+
     public ArrayList<AnswerFragment> getAnswerList() {
         return answerList;
     }
@@ -77,5 +85,9 @@ public class Sentence {
     public void setTest(Test test) throws MalFormedSentence {
         this.test = test;
         this.setAnswerList(test.getAnswer());
+    }
+
+    public void addResult(float f) {
+        this.stat.addResult(f);
     }
 }
