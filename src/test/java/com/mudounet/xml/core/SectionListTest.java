@@ -5,7 +5,6 @@
 package com.mudounet.xml.core;
 
 import com.mudounet.core.ResourceManager;
-import com.mudounet.xml.stats.TestStat;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.*;
