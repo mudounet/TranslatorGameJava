@@ -14,14 +14,13 @@ import org.slf4j.LoggerFactory;
 public class TestList {
 
     private static final Logger Logger = LoggerFactory.getLogger(TestList.class);
-    
     @ElementList(inline = true)
     protected List<TestStat> list = new ArrayList<TestStat>();
 
     public void setList(List<TestStat> list) {
         this.list = list;
     }
-    
+
     /**
      * @return the list
      */
@@ -36,31 +35,49 @@ public class TestList {
     }
 
     public void load(InputStream stream) throws Exception {
-        if(stream == null) {
+        if (stream == null) {
             this.list = new ArrayList<TestStat>();
-        }
-        else {   
+        } else {
             Serializer serializer = new Persister();
             TestList t = serializer.read(TestList.class, stream);
             this.list = t.list;
         }
     }
-    
+
     public float mean() {
-        if(list.isEmpty()) {
+        if (list.isEmpty()) {
             return 0;
         }
-        
+
         float mean = 0;
-        for(TestStat t : this.list) {
+        for (TestStat t : this.list) {
             mean += t.mean();
         }
-        
-        return mean  / this.list.size();
+
+        return mean / this.list.size();
     }
-    
+
     public TestStat getSelectedStat() {
+        return getSelectedStat(null);
+    }
+
+    public TestStat getSelectedStat(Date limitBeforeReuse) {
         Collections.sort(list);
-        return this.list.get(0);
+        
+        if(limitBeforeReuse == null) {
+            return this.list.get(0);
+        }
+        
+        TestStat selectedItem = null;
+        int indexOfSelection;
+        for(indexOfSelection = 0; indexOfSelection < this.list.size(); indexOfSelection++) {
+            if(this.list.get(indexOfSelection).getLastUpdate().before(limitBeforeReuse)) {
+                selectedItem = this.list.get(indexOfSelection);
+                break;
+            }
+        }
+        
+        Logger.info("Skipped "+indexOfSelection+" tests ("+(indexOfSelection * 100 / this.list.size())+"%)");
+        return selectedItem;
     }
 }
