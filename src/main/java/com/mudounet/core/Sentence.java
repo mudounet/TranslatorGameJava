@@ -13,7 +13,6 @@ public class Sentence {
     private static final Logger Logger = LoggerFactory
             .getLogger(Sentence.class);
     private ArrayList<AnswerFragment> answerList;
-    private String answer;
     private TestStat stat;
     private Test test;
 
@@ -22,7 +21,8 @@ public class Sentence {
         this.setStat(stat);
     }
 
-    public Sentence() {
+    public Sentence() throws Exception {
+        throw new Exception("Forbidden construct");
     }
 
     public ArrayList<AnswerFragment> getAnswerList() {
@@ -32,7 +32,7 @@ public class Sentence {
     private void setAnswerList(String expectedAnswer) throws MalFormedSentence {
         ArrayList<AnswerFragment> elts = new ArrayList<AnswerFragment>();
 
-        CharSequence cs = new String(expectedAnswer);
+        CharSequence cs = expectedAnswer;
         int lastCharType = 0;
 
         StringBuilder l = new StringBuilder();
@@ -67,11 +67,14 @@ public class Sentence {
         elts.add(fragment);
 
         this.answerList = elts;
-        this.answer = expectedAnswer;
     }
 
     public int getResults() {
-        throw new NotImplementedException();
+        int resultCount = 0;
+        for(AnswerFragment fragment : this.answerList) {
+            resultCount += fragment.getResult();
+        }
+        return resultCount;
     }
 
     public TestStat getStat() {
@@ -84,7 +87,15 @@ public class Sentence {
 
     public void setTest(Test test) throws MalFormedSentence {
         this.test = test;
+        if (this.test == null) {
+            this.answerList = null;
+            return;
+        }
         this.setAnswerList(test.getAnswer());
+    }
+    
+    public Test getTest() {
+        return this.test;
     }
 
     public void addResult(float f) {

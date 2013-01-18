@@ -4,6 +4,7 @@ import com.mudounet.xml.core.MappedSectionList;
 import com.mudounet.xml.stats.MappedTestList;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,9 +44,9 @@ public class Lesson {
     }
     
     public Sentence getNextSentence() throws MalFormedSentence {
-        
-        String selectedKey = this.statList.getSelectedStat().getKey();
-        return this.linkedList.get(selectedKey);
+        Date d = new Date();
+        d.setTime(d.getTime() - (15 * 60 * 1000));
+        return this.linkedList.get(this.statList.getSelectedStat(d).getKey());
     }
     
     public float getInitialStat() {

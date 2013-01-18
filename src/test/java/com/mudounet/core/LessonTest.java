@@ -73,28 +73,4 @@ public class LessonTest {
         assertEquals(lastValue, instance.getInitialStat(), 0.001f);
         assertNotEquals(instance.getStat(), instance.getInitialStat(), 0.001f);
     }
-
-    /**
-     * Test of getNextSentence method, of class Lesson.
-     */
-    @Test
-    public void testGetNextSentence() throws MalFormedSentence {
-        System.out.println("TEST : getNextSentence");
-        Sentence expResult = null;
-        Sentence result = instance.getNextSentence();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of saveStats method, of class Lesson.
-     */
-    @Test
-    public void testSaveStats() throws Exception {
-        System.out.println("TEST : saveStats");
-        instance.saveStats(null);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 }

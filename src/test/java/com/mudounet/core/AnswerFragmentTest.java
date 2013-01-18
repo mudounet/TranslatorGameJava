@@ -4,7 +4,6 @@
 package com.mudounet.core;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,15 +32,15 @@ public class AnswerFragmentTest {
 	
 	private void testFragmentValidation(String origString, String[] answers, int[] results) throws MalFormedSentence {
 		QFTested = new AnswerFragment(origString);
-		assertEquals(origString.length(), QFTested.validate());
+		assertEquals(origString.length(), QFTested.getResult());
 		
 		for(int idx = 0; idx < answers.length; idx++) {
 			QFTested.setAnswer(answers[idx]);
-			assertEquals(results[idx], QFTested.validate());
+			assertEquals(results[idx], QFTested.getResult());
 		}
 		
 		QFTested.setAnswer(origString);
-		assertEquals(0, QFTested.validate());
+		assertEquals(0, QFTested.getResult());
 	}
 
 	/**
