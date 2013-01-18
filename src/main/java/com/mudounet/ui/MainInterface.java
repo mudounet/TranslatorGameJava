@@ -53,6 +53,11 @@ public class MainInterface extends javax.swing.JFrame {
         }
 
         jValidate.setText("Validate proposal");
+        jValidate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                test(evt);
+            }
+        });
 
         jAnswer1.setBackground(new java.awt.Color(255, 153, 153));
         jAnswer1.setText("Answer text 1");
@@ -119,6 +124,11 @@ public class MainInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void test(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_test
+        // TODO add your handling code here:
+        System.out.println("Ceci est mon test");
+    }//GEN-LAST:event_test
 
     /**
      * @param args the command line arguments
