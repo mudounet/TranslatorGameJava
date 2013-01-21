@@ -10,95 +10,101 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Sentence {
 
-    private static final Logger Logger = LoggerFactory
-            .getLogger(Sentence.class);
-    private ArrayList<AnswerFragment> answerList;
-    private TestStat stat;
-    private Test test;
+	private static final Logger Logger = LoggerFactory
+			.getLogger(Sentence.class);
+	private ArrayList<AnswerFragment> answerList;
+	private String questionRef = "";
+	private TestStat stat;
+	private Test test;
 
-    public Sentence(Test test, TestStat stat) throws MalFormedSentence {
-        this.setTest(test);
-        this.setStat(stat);
-    }
+	public Sentence(Test test, TestStat stat) throws MalFormedSentence {
+		this.setTest(test);
+		this.setStat(stat);
+	}
 
-    public Sentence() throws Exception {
-        throw new Exception("Forbidden construct");
-    }
+	public Sentence() throws Exception {
+		throw new Exception("Forbidden construct");
+	}
 
-    public ArrayList<AnswerFragment> getAnswerList() {
-        return answerList;
-    }
+	public ArrayList<AnswerFragment> getAnswerList() throws MalFormedSentence {
 
-    private void setAnswerList(String expectedAnswer) throws MalFormedSentence {
-        ArrayList<AnswerFragment> elts = new ArrayList<AnswerFragment>();
+		String answer = test.getAnswer();
+		if ( answerList == null || questionRef != answer) {
 
-        CharSequence cs = expectedAnswer;
-        int lastCharType = 0;
+			answerList = new ArrayList<AnswerFragment>();
 
-        StringBuilder l = new StringBuilder();
-        for (int x = 0; x < cs.length(); x++) {
-            char myChar = cs.charAt(x);
+			CharSequence cs = answer;
+			int lastCharType = 0;
 
-            int charType;
+			StringBuilder l = new StringBuilder();
+			for (int x = 0; x < cs.length(); x++) {
+				char myChar = cs.charAt(x);
 
-            if (Character.toString(myChar).matches("[\\p{L}#]")) {
-                charType = 1;
-            } else {
-                charType = 2;
-            }
+				int charType;
 
-            if (lastCharType == 0) {
-                lastCharType = charType;
-            }
+				if (Character.toString(myChar).matches("[\\p{L}#]")) {
+					charType = 1;
+				} else {
+					charType = 2;
+				}
 
-            if (charType != lastCharType) {
-                Logger.debug("Found match : \"" + l.toString() + "\"");
-                AnswerFragment fragment = new AnswerFragment(l.toString());
-                elts.add(fragment);
+				if (lastCharType == 0) {
+					lastCharType = charType;
+				}
 
-                l = new StringBuilder();
-            }
-            l.append(myChar);
-            lastCharType = charType;
-        }
+				if (charType != lastCharType) {
+					Logger.debug("Found match : \"" + l.toString() + "\"");
+					AnswerFragment fragment = new AnswerFragment(l.toString());
+					answerList.add(fragment);
 
-        Logger.debug("Found last match : \"" + l.toString() + "\"");
-        AnswerFragment fragment = new AnswerFragment(l.toString());
-        elts.add(fragment);
+					l = new StringBuilder();
+				}
+				l.append(myChar);
+				lastCharType = charType;
+				questionRef = answer;
+			}
 
-        this.answerList = elts;
-    }
+			Logger.debug("Found last match : \"" + l.toString() + "\"");
+			AnswerFragment fragment = new AnswerFragment(l.toString());
+			answerList.add(fragment);
+		}
+		return answerList;
+	}
 
-    public int getResults() {
-        int resultCount = 0;
-        for(AnswerFragment fragment : this.answerList) {
-            resultCount += fragment.getResult();
-        }
-        return resultCount;
-    }
+	private void setAnswerList(String expectedAnswer) throws MalFormedSentence {
 
-    public TestStat getStat() {
-        return stat;
-    }
+		this.answerList = getAnswerList();
+	}
 
-    public void setStat(TestStat stat) {
-        this.stat = stat;
-    }
+	public int getResults() {
+		int resultCount = 0;
+		for (AnswerFragment fragment : this.answerList) {
+			resultCount += fragment.getResult();
+		}
+		return resultCount;
+	}
 
-    public void setTest(Test test) throws MalFormedSentence {
-        this.test = test;
-        if (this.test == null) {
-            this.answerList = null;
-            return;
-        }
-        this.setAnswerList(test.getAnswer());
-    }
-    
-    public Test getTest() {
-        return this.test;
-    }
+	public TestStat getStat() {
+		return stat;
+	}
 
-    public void addResult(float f) {
-        this.stat.addResult(f);
-    }
+	public void setStat(TestStat stat) {
+		this.stat = stat;
+	}
+
+	public void setTest(Test test) {
+		this.test = test;
+		if (this.test == null) {
+			this.answerList = null;
+			return;
+		}
+	}
+
+	public Test getTest() {
+		return this.test;
+	}
+
+	public void addResult(float f) {
+		this.stat.addResult(f);
+	}
 }
