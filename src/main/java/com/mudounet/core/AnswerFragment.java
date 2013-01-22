@@ -81,7 +81,7 @@ public class AnswerFragment {
     public void setAnswer(String answerText) {
         if (this.fragmentType == EDITABLE_FRAGMENT) {
             this.answer = answerText;
-            this.levenshteinResult = computeLevenshteinDistance();
+            this.levenshteinResult = -1;
         } else {
             this.answer = this.question;
             this.levenshteinResult = 0;
@@ -118,6 +118,8 @@ public class AnswerFragment {
     }
 
     public int getResult() {
+    	if(this.levenshteinResult == -1)
+    		this.levenshteinResult = computeLevenshteinDistance();
         return this.levenshteinResult;
     }
 }
