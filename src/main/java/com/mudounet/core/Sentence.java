@@ -83,6 +83,23 @@ public class Sentence {
 		}
 		return resultCount;
 	}
+	
+	public float getResultAsPerc() {
+		float total = 0;
+		
+		for (AnswerFragment fragment : this.answerList) {
+			if (fragment.getFragmentType() == AnswerFragment.EDITABLE_FRAGMENT) {
+				total += fragment.getQuestion().length();
+			}
+		}
+		
+		if(total == 0) return 100;
+		
+		float result = (total - this.getResults()) * 100 / total;
+		result = (float)Math.round(result * 10) / 10;
+		Logger.debug("Percentage obtained : "+result);
+		return result;
+	}
 
 	public TestStat getStat() {
 		return stat;

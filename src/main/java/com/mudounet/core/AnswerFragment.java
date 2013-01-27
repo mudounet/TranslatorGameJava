@@ -18,7 +18,8 @@ public class AnswerFragment {
     private String answer;
     private int fragmentType;
     private String question;
-    private int levenshteinResult = 0;
+    private int levenshteinResult = -1;
+    private int qtyOfEditableFields = -1;
 
     public AnswerFragment() {
     }

@@ -18,7 +18,11 @@ public class Lesson {
         loadLesson(lessonStream);
     }
 
-    
+    public Lesson(InputStream lessonStream, InputStream statsStream) throws Exception {
+    	sectionList.load(lessonStream);
+    	statList.load(statsStream);
+    	setTestStatList(statList);
+    }
     
     public void loadLesson(InputStream lessonStream) throws Exception {
         sectionList.load(lessonStream);
