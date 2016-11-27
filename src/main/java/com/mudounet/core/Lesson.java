@@ -54,11 +54,11 @@ public class Lesson {
     }
     
     public float getInitialStat() {
-        return this.initialStat;  
+        return StatFormatter.formatStat(this.initialStat);  
     }
     
     public float getStat() {
-        return this.statList.mean();  
+        return StatFormatter.formatStat(this.statList.mean());  
     }
     
     public void saveStats(OutputStream outputStream) throws Exception {

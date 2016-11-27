@@ -96,7 +96,7 @@ public class Sentence {
 		if(total == 0) return 100;
 		
 		float result = (total - this.getResults()) * 100 / total;
-		result = (float)Math.round(result * 10) / 10;
+		result = StatFormatter.formatStat(result);
 		Logger.debug("Percentage obtained : "+result);
 		return result;
 	}
