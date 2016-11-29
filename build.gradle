@@ -1,0 +1,23 @@
+apply plugin: 'java'
+
+group = 'com.mudounet'
+version = '0.0.1-SNAPSHOT'
+
+description = """Translator Game (java)"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.simpleframework:simple-xml:2.6.9'
+    compile 'org.slf4j:slf4j-api:1.7.+'
+	runtime 'org.slf4j:slf4j-jdk14:1.7.+'
+    testCompile 'junit:junit:4.+'
+}
